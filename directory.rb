@@ -19,14 +19,14 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "---------------"
+  puts "The Students of Villains Academy".center(50)
+  puts "---------------".center(50)
 end
 
 def print(students)
   count = 0
   while students.count > count
-    puts "#{students[count][:name]}, #{students[count][:age]} (#{students[count][:cohort]})"
+    puts "#{students[count][:name]}, #{students[count][:age]} (#{students[count][:cohort]})".center(50)
     count = count + 1
   end
 end
