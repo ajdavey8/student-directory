@@ -13,7 +13,11 @@ def input_students
       cohort=gets.chomp
     end
     @students << {name: name, cohort: cohort.to_sym}
+    if @students.count == 1
+      puts "Now we have #{@students.count} student. Please add another student or exit"
+    else
     puts "Now we have #{@students.count} students. Please add another student or exit"
+    end
     name=gets.chomp
   end
   @students
@@ -43,7 +47,11 @@ end
 
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  if @students.count == 1
+    puts "Overall, we have 1 great student"
+  else
+    puts "Overall, we have #{students.count} great students"
+  end
 end
 
 students = input_students
