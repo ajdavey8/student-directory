@@ -19,8 +19,10 @@ def print_header
 end
 
 def print(students)
-  students.each.with_index(1) do |student, index|
-    puts "#{index}. #{student[:name]} (#{student[:cohort].capitalize} cohort)"
+    students.each.with_index(1) do |student, index|
+      if student[:name].match(/^A/)
+        puts "#{index}. #{student[:name]} (#{student[:cohort].capitalize} cohort)"
+    end
   end
 end
 
