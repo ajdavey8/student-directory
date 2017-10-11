@@ -20,7 +20,8 @@ end
 
 def print(students)
     students.each.with_index(1) do |student, index|
-      if student[:name].match(/^A/)
+      if student[:name].length > 12
+      else
         puts "#{index}. #{student[:name]} (#{student[:cohort].capitalize} cohort)"
     end
   end
