@@ -19,24 +19,35 @@ def input_students
   @students
 end
 
+def selecting_cohort
+  puts "select which cohort you would like to view, or type 'all' to view all students"
+  @selected=gets.chomp
+end
+
+def print(students)
+  students.map do |student|
+    if student[:cohort] == @selected.to_sym
+      puts "#{student[:name]} (#{student[:cohort].capitalize} cohort)".center(50)
+    end
+    if @selected == 'all'
+      puts "#{student[:name]} (#{student[:cohort].capitalize} cohort)".center(50)
+    end
+  end
+end
+
 def print_header
   puts "The Students of Villains Academy".center(50)
   puts "---------------".center(50)
 end
 
-def print(students)
-  count = 0
-  while students.count > count
-    puts "#{students[count][:name]}, (#{students[count][:cohort]})".center(50)
-    count = count + 1
-  end
-end
+
 
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 
 students = input_students
+selecting_cohort
 print_header
 print(students)
 print_footer(students)
