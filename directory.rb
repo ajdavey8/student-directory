@@ -3,33 +3,40 @@
 @students = []
 def interactive_menu
   loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-    selection = gets.chomp
-
-    case selection
-    when "1"
-      students = input_students
-    when "2"
-      print_header
-      print(students)
-      print_footer(students)
-    when "9"
-      exit
-    else
-      puts "I don't know what you mean, please try again"
-    end
+    print_menu
+    process(gets.chomp)
   end
 end
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
+
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "9"
+    exit
+  else
+    puts "I don't know what you mean, please try again"
+  end
+end
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   name = gets.chomp
-  if name == ''
-    puts "No students added to the list"
-    exit
-  end
   while !name.empty? do
   puts "And which cohort are they in?"
   cohort=gets.chomp
@@ -38,19 +45,22 @@ def input_students
       cohort=gets.chomp
     end
     @students << {name: name, cohort: cohort.to_sym}
-    if @students.count == 1
-      puts "Now we have #{@students.count} student. Please add another student or exit"
-    else
-    puts "Now we have #{@students.count} students. Please add another student or exit"
-    end
+    student_counter
     name=gets.chomp
   end
-  @students
 end
 
-def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+def student_counter
+  if @students.count == 1
+    puts "Now we have #{@students.count} student. Please add another student or exit"
+  else
+  puts "Now we have #{@students.count} students. Please add another student or exit"
+  end
+end
+
+def print_students_list
+  @students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(50)
   end
 end
 
@@ -59,32 +69,12 @@ def print_header
   puts "---------------".center(50)
 end
 
-def print_footer(students)
+def print_footer
   if @students.count == 1
     puts "Overall, we have 1 great student"
   else
-    puts "Overall, we have #{students.count} great students"
+    puts "Overall, we have #{@students.count} great students"
   end
 end
 
-students = input_students
-print_header
-print(students)
-print_footer(students)
-
-#method for cohort selectiion
-def selecting_cohort
-  puts "select which cohort you would like to view, or type 'all' to view all students"
-  @selected=gets.chomp
-end
-
-def print(students)
-  students.map do |student|
-    if student[:cohort] == @selected.to_sym
-      puts "#{student[:name]} (#{student[:cohort].capitalize} cohort)".center(50)
-    end
-    if @selected == 'all'
-      puts "#{student[:name]} (#{student[:cohort].capitalize} cohort)".center(50)
-    end
-  end
-end
+interactive_menu
