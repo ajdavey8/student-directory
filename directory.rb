@@ -4,7 +4,7 @@
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = gets.chomp
+  name = gets.strip
   while !name.empty? do
   puts "And which cohort are they in?"
   cohort=gets.chomp
@@ -18,7 +18,7 @@ def input_students
     else
     puts "Now we have #{@students.count} students. Please add another student or exit"
     end
-    name=gets.chomp
+    name=gets.strip
   end
   @students
 end
