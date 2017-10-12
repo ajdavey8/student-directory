@@ -4,7 +4,11 @@
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = gets.strip
+  name = gets.chomp
+  if name == ''
+    puts "No students added to the list"
+    exit
+  end
   while !name.empty? do
   puts "And which cohort are they in?"
   cohort=gets.chomp
@@ -18,11 +22,36 @@ def input_students
     else
     puts "Now we have #{@students.count} students. Please add another student or exit"
     end
-    name=gets.strip
+    name=gets.chomp
   end
   @students
 end
 
+def print(students)
+  students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  end
+end
+
+def print_header
+  puts "The Students of Villains Academy".center(50)
+  puts "---------------".center(50)
+end
+
+def print_footer(students)
+  if @students.count == 1
+    puts "Overall, we have 1 great student"
+  else
+    puts "Overall, we have #{students.count} great students"
+  end
+end
+
+students = input_students
+print_header
+print(students)
+print_footer(students)
+
+#method for cohort selectiion
 def selecting_cohort
   puts "select which cohort you would like to view, or type 'all' to view all students"
   @selected=gets.chomp
@@ -38,24 +67,3 @@ def print(students)
     end
   end
 end
-
-def print_header
-  puts "The Students of Villains Academy".center(50)
-  puts "---------------".center(50)
-end
-
-
-
-def print_footer(students)
-  if @students.count == 1
-    puts "Overall, we have 1 great student"
-  else
-    puts "Overall, we have #{students.count} great students"
-  end
-end
-
-students = input_students
-selecting_cohort
-print_header
-print(students)
-print_footer(students)
