@@ -11,8 +11,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list"
+  puts "4. Load a list"
   puts "9. Exit"
 end
 
@@ -29,11 +29,9 @@ def process(selection)
   when "2"
     show_students
   when "3"
-    save_students
-    puts "List has been saved"
+    ask_save
   when "4"
-    load_students
-    puts "List Loaded"
+    ask_load
   when "9"
     puts "Goodbye"
     exit
@@ -86,14 +84,27 @@ def print_footer
   end
 end
 
-def save_students
-  file = File.open("students.csv", "w")
+def ask_save
+puts "Where would you like to save the students?"
+file = STDIN.gets.chomp
+save_students(file)
+end
+
+def save_students(csv_file)
+  file = File.open(csv_file, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
   file.close
+  puts "File saved"
+end
+
+def ask_load
+puts "Which file of students would you like to load?"
+file = STDIN.gets.chomp
+load_students(file)
 end
 
 def load_students(filename = "students.csv")
@@ -103,6 +114,7 @@ def load_students(filename = "students.csv")
     add_student
   end
   file.close
+  puts "File Loaded"
 end
 
 def try_load_students
