@@ -30,9 +30,12 @@ def process(selection)
     show_students
   when "3"
     save_students
+    puts "List has been saved"
   when "4"
     load_students
+    puts "List Loaded"
   when "9"
+    puts "Goodbye"
     exit
   else
     puts "I don't know what you mean, please try again"
