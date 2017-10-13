@@ -91,14 +91,13 @@ save_students(file)
 end
 
 def save_students(csv_file)
-  file = File.open(csv_file, "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  File.open(csv_file, "w") do |f|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      f.puts csv_line
+    end
   end
-  file.close
-  puts "File saved"
 end
 
 def ask_load
@@ -107,14 +106,13 @@ file = STDIN.gets.chomp
 load_students(file)
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  @name, @cohort = line.chomp.split(',')
-    add_student
+def load_students(filename)
+  file = File.open(filename, "r") do |f|
+    f.readlines.each do |line|
+      @name, @cohort = line.chomp.split(',')
+      add_student
+    end
   end
-  file.close
-  puts "File Loaded"
 end
 
 def try_load_students
