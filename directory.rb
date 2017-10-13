@@ -134,3 +134,7 @@ def add_student
 end
 try_load_students
 interactive_menu
+
+def print_source_code
+  $><<IO.read($0)
+end
